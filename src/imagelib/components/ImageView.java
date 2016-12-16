@@ -143,7 +143,7 @@ public class ImageView extends JPanel{
      * Perform the asigned scaleType to the image of this component.
      * @return the scaled rectangle.
      */
-    private Rectangle performScale(){
+    protected Rectangle performScale(){
         float aspectRatio = (float)image.getWidth() / (float)image.getHeight();
         int xOffset = 0;
         int yOffset = 0;
