@@ -22,8 +22,9 @@ public class PreviewImage extends JFrame {
         initComponents();
         this.setTitle("Preview");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(600, 700);
         imageView1.setImage(image);
-        imageView1.setScaleType(ImageView.CENTER_INSIDE);
+        imageView1.setScaleType(ImageView.FIT_XY);
         this.setVisible(true);
     }
 
