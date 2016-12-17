@@ -14,6 +14,11 @@ import java.awt.image.BufferedImage;
  */
 public class ImageTools {
     
+    /**
+     * Convert one image to GrayScale.
+     * @param image Image to convert.
+     * @return the converted image.
+     */
     public static BufferedImage convertToGrayScale(BufferedImage image){
         BufferedImage outImg = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
         
@@ -36,6 +41,12 @@ public class ImageTools {
         return outImg;
     }
     
+    /**
+     * Threshold an image
+     * @param image Image to convert.
+     * @param threshold value between 0 and 255.
+     * @return the converted image.
+     */
     public static BufferedImage thresholdImage(BufferedImage image, int threshold){
         BufferedImage outImg = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
         
@@ -62,6 +73,16 @@ public class ImageTools {
         return outImg;
     }
     
+    /**
+     * Split the RGB channels of the given image.
+     * @param image Image to split.
+     * @return Return an array of BufferedImage with the 3 color channels:
+     * <ol>
+     * <li>Red channel.</li>
+     * <li>Green channel.</li>
+     * <li>Blue channel.</li>
+     * </ol>
+     */
     public static BufferedImage[] splitColorChannels(BufferedImage image){
         BufferedImage imgRed = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
         BufferedImage imgGreen = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
@@ -75,10 +96,14 @@ public class ImageTools {
                 imgBlue.setRGB(i, j, colorToInt(new int[]{c[2], c[2], c[2]}));
             }
         }
-        
         return new BufferedImage[]{imgRed, imgGreen, imgBlue};
     }
     
+    /**
+     * Inverts the colors of the given image.
+     * @param image Image to invert.
+     * @return the converted image.
+     */
     public static BufferedImage inverColor(BufferedImage image){
         BufferedImage outImg = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
         
@@ -100,6 +125,12 @@ public class ImageTools {
         return outImg;
     }
     
+    /**
+     * Takes the pixels of the image, maximize the highest RGB channel and
+     * minimize the others.
+     * @param image Image to maximize.
+     * @return the converted image.
+     */
     public static BufferedImage maximizeRGB(BufferedImage image){
         BufferedImage outImg = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
         
@@ -124,6 +155,12 @@ public class ImageTools {
         return outImg;
     }
     
+    /**
+     * Takes the pixels of the image, maximize the lowest RGB channel and
+     * minimize the others.
+     * @param image Image to minimize.
+     * @return the converted image.
+     */
     public static BufferedImage minimizeRGB(BufferedImage image){
         BufferedImage outImg = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
         
@@ -149,6 +186,14 @@ public class ImageTools {
         return outImg;
     }
     
+    /**
+     * Adjust the HSL channels of the image (Only Hue channel works).
+     * @param image Image to convert.
+     * @param hue Hue value (0 - 1).
+     * @param saturation Saturation value (0 - 1).
+     * @param light Light value value (0 - 1).
+     * @return the converted image.
+     */
     public static BufferedImage adjustHSL(BufferedImage image, float hue, float saturation, float light){
         BufferedImage outImg = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
         
@@ -164,6 +209,11 @@ public class ImageTools {
         return outImg;
     }
     
+    /**
+     * Extract the RGB channels from an integer color.
+     * @param intColor
+     * @return Return an array of integer with the 3 color channels:
+     */
     private static int[] intToColor(int intColor){
         return new int[]{
             (intColor >> 16) & 0xFF,
@@ -171,7 +221,7 @@ public class ImageTools {
             (intColor & 0xFF)
         };
     }
-    
+
     private static int colorToInt(int[] color){
         int intColor = color[0];
         intColor = (intColor << 8) + color[1];
