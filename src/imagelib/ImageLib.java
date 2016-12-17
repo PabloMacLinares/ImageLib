@@ -25,14 +25,14 @@ public class ImageLib {
     public static void main(String[] args) {
         BufferedImage image = null;
         try {
-            image = ImageIO.read(new File("Lenna.png"));
+            image = ImageIO.read(new File("img3.png"));
             //image = ImageTools.convertToGrayScale(image);
             //image = ImageTools.thresholdImage(image, 128);
             //image = ImageTools.splitColorChannels(image)[0];
             //image = ImageTools.inverColor(image);
             //image = ImageTools.maximizeRGB(image);
             //image = ImageTools.minimizeRGB(image);
-            image = ImageTools.adjustHSL(image, 300, 0, 0);
+            //image = ImageTools.adjustHSL(image, 0f, 0, 0);
         } catch (IOException ex) {
             Logger.getLogger(ImageLib.class.getName()).log(Level.SEVERE, null, ex);
         }

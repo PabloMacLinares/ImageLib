@@ -6,6 +6,7 @@
 package imagelib;
 
 import imagelib.components.ImageView;
+import imagelib.image_lab.tools.ImageTools;
 import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 
@@ -15,6 +16,10 @@ import javax.swing.JFrame;
  */
 public class PreviewImage extends JFrame {
 
+    private BufferedImage inImage, outImage;
+    float hue = 0;
+    float saturation = 0;
+    float light = 0;
     /**
      * Creates new form Preview
      */
@@ -23,9 +28,17 @@ public class PreviewImage extends JFrame {
         this.setTitle("Preview");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600, 700);
-        imageView1.setImage(image);
+        
+        inImage = image;
+        outImage = image;
+        imageView1.setImage(outImage);
         imageView1.setScaleType(ImageView.FIT_XY);
         this.setVisible(true);
+    }
+    
+    private void updateImage(){
+        outImage = ImageTools.adjustHSL(inImage, hue, saturation, light);
+        imageView1.setImage(outImage);
     }
 
     /**
@@ -38,6 +51,10 @@ public class PreviewImage extends JFrame {
     private void initComponents() {
 
         imageView1 = new imagelib.components.ImageView();
+        jPanel1 = new javax.swing.JPanel();
+        slHue = new javax.swing.JSlider();
+        slSaturation = new javax.swing.JSlider();
+        slBright = new javax.swing.JSlider();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,16 +66,66 @@ public class PreviewImage extends JFrame {
         );
         imageView1Layout.setVerticalGroup(
             imageView1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 274, Short.MAX_VALUE)
         );
 
         getContentPane().add(imageView1, java.awt.BorderLayout.CENTER);
 
+        jPanel1.setLayout(new java.awt.GridLayout(1, 3));
+
+        slHue.setValue(0);
+        slHue.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                slHueStateChanged(evt);
+            }
+        });
+        jPanel1.add(slHue);
+
+        slSaturation.setValue(0);
+        slSaturation.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                slSaturationStateChanged(evt);
+            }
+        });
+        jPanel1.add(slSaturation);
+
+        slBright.setValue(0);
+        slBright.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                slBrightStateChanged(evt);
+            }
+        });
+        jPanel1.add(slBright);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void slHueStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_slHueStateChanged
+        hue = (float) slHue.getValue() / 100f;
+        System.out.println("Hue: " + hue);
+        updateImage();
+    }//GEN-LAST:event_slHueStateChanged
+
+    private void slSaturationStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_slSaturationStateChanged
+        saturation = (float) slSaturation.getValue() / 100f;
+        System.out.println("Saturation: " + saturation);
+        updateImage();
+    }//GEN-LAST:event_slSaturationStateChanged
+
+    private void slBrightStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_slBrightStateChanged
+        light = (float) slBright.getValue() / 100f;
+        System.out.println("Light: " + light);
+        updateImage();
+    }//GEN-LAST:event_slBrightStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private imagelib.components.ImageView imageView1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JSlider slBright;
+    private javax.swing.JSlider slHue;
+    private javax.swing.JSlider slSaturation;
     // End of variables declaration//GEN-END:variables
 }

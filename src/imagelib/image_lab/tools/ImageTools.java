@@ -156,7 +156,7 @@ public class ImageTools {
             for (int j = 0; j < image.getHeight(); j++) {
                 int[] c = intToColor(image.getRGB(i, j));
                 float[] hsl = Color.RGBtoHSB(c[0], c[1], c[2], new float[3]);
-                int fc = Color.HSBtoRGB(hsl[0] + hue, hsl[1] + saturation, hsl[2] + light);
+                int fc = Color.HSBtoRGB(hsl[0] + hue, hsl[1], hsl[2]);
                 outImg.setRGB(i, j, fc);
             }
         }
